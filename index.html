@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>记忆面包</title>
+  <style>
+    /* 页面基础样式 */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000;
+    }
+    
+    /* 视频容器 - 全屏覆盖 */
+    #video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 100;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* 视频元素 */
+    #intro-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* 跳过按钮 */
+    #skip-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 25px;
+      z-index: 101;
+      transition: all 0.3s;
+    }
+    
+    #skip-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+      border-color: #fff;
+    }
+    
+    /* 确认对话框 */
+    #skip-dialog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 102;
+    }
+    
+    #skip-dialog.active {
+      display: flex;
+    }
+    
+    .dialog-box {
+      background: #222;
+      padding: 30px 40px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #444;
+    }
+    
+    .dialog-box p {
+      color: #fff;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .dialog-btns {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+    
+    .dialog-btns button {
+      padding: 8px 25px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    
+    #confirm-skip {
+      background: #e74c3c;
+      color: #fff;
+    }
+    
+    #confirm-skip:hover {
+      background: #c0392b;
+    }
+    
+    #cancel-skip {
+      background: #555;
+      color: #fff;
+    }
+    
+    #cancel-skip:hover {
+      background: #666;
+    }
+    
+    /* p5画布容器 - 初始隐藏 */
+    #p5-container {
+      display: none;
+    }
+    
+    /* 确保p5画布全屏 */
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- ========== 视频播放层 ========== -->
+  <div id="video-container">
+    <video id="intro-video" playsinline>
+      <source src="assets/beginning.mp4" type="video/mp4">
+    </video>
+    <button id="skip-btn">跳过 ▶▶</button>
+  </div>
+  
+  <!-- 跳过确认对话框 -->
+  <div id="skip-dialog">
+    <div class="dialog-box">
+      <p>确定要跳过开场视频吗？</p>
+      <div class="dialog-btns">
+        <button id="confirm-skip">确认跳过</button>
+        <button id="cancel-skip">继续播放</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ========== p5.js 画布层 ========== -->
+  <div id="p5-container"></div>
+  
+  <!-- p5.js 核心库 -->
+  <script src="libraries/p5.min.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
+  
+  <!-- 笔刷模块 -->
+  <script src="brush.js"></script>
+  
+  <!-- 主程序 -->
+  <script src="sketch.js"></script>
+  
+</body>
+</html>
